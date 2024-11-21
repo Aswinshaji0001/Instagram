@@ -28,15 +28,15 @@ const Email = () => {
     }
   return (
 <div>
-        <div class="cos">
-            <div class="container">
+        <div className="cos">
+            <div className="container">
             <h1>Sign In</h1>
             <form id="forget" onSubmit={handleSubmit}>
-                <div class="form-group">
-                    <label for="email">Email</label>
+                <div className="form-group">
+                    <label htmlFor="email">Email</label>
                     <input type="email" id="email" name="email" onChange={handleChange}/>
                 </div>
-                <button type="submit" class="btn">Send</button>
+                <button type="submit" className="btn">Send</button>
             </form>
         </div>
     </div>
