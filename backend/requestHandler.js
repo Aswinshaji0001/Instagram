@@ -62,9 +62,7 @@ export async function signIn(req,res) {
     const token = await sign({userId:user._id},process.env.JWT_KEY,{expiresIn:"24h"});
     console.log(token);
     return res.status(200).send({msg:"successfully logged in",token})
-    
-    
-    
+   
 }
 export async function verifyMail(req,res) {
     const {email}=req.body;

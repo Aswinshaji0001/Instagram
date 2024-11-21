@@ -1,7 +1,10 @@
 import React from 'react'
 import { useState } from 'react';
+import {useNavigate} from 'react-router-dom';
+
 const Signup = () => {
-    const [emp,setEmp]=useState({
+    const navigate=useNavigate();
+    const [user,setUser]=useState({
         username:"",
         email:"",
         password:"",
@@ -10,19 +13,21 @@ const Signup = () => {
     });
     const handleChange=(e)=>{
         console.log(e.target.value);
-        setEmp((pre)=>({
+        setUser((pre)=>({
             ...pre,[e.target.name]:e.target.value
         }))
     }
     const handleSubmit=async(e)=>{
         e.preventDefault();
-        console.log(emp);
+        console.log(user);
         const res = await fetch("http://localhost:3000/api/signup",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
-            body:JSON.stringify(emp)
+            body:JSON.stringify(user)
         })
         console.log(res);
+        navigate('/login')
+
     }
   return (
     <div>

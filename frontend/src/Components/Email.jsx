@@ -1,24 +1,29 @@
 import React, { useState } from 'react'
+import {useNavigate} from 'react-router-dom';
 import "../css/Email.css"
 
+
 const Email = () => {
-    const [emp,setEmp]=useState({
+    const navigate=useNavigate();
+    const [user,setUser]=useState({
         email:""
     });
     const handleChange=(e)=>{
         console.log(e.target.value);
-        setEmp((pre)=>({
+        setUser((pre)=>({
             ...pre,[e.target.name]:e.target.value
         }))
     }
     const handleSubmit=async(e)=>{
         e.preventDefault();
-        console.log(emp);
+        console.log(user);
         const res = await fetch("http://localhost:3000/api/otp",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
-            body:JSON.stringify(emp)
+            body:JSON.stringify(user)
+
         })
+        navigate('/login')
         console.log(res);
     }
   return (
