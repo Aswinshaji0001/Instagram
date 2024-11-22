@@ -1,12 +1,14 @@
 import React from 'react'
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
+import axios from 'axios'
 
 const Signup = () => {
     const navigate=useNavigate();
+    const email=localStorage.getItem('email')
     const [user,setUser]=useState({
         username:"",
-        email:"",
+        email:email,
         password:"",
         cpassword:""
 
@@ -20,13 +22,17 @@ const Signup = () => {
     const handleSubmit=async(e)=>{
         e.preventDefault();
         console.log(user);
-        const res = await fetch("http://localhost:3000/api/signup",{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify(user)
-        })
+        const res = await axios.post("http://localhost:3000/api/signup",user,{Headers:{"Content-Type":"application/json"}})
         console.log(res);
-        navigate('/login')
+        console.log(res.data.msg);
+        if(res.status==201){
+            localStorage.removeItem('email')
+            alert(res.data.msg)
+            navigate('/login')
+        }
+        else{
+            alert(res.data.msg);
+        }
 
     }
   return (
@@ -38,10 +44,6 @@ const Signup = () => {
         <div className="form-group">
             <label htmlFor="username">Username</label>
             <input type="text" id="username" name="username" onChange={handleChange}/>
-        </div>
-        <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="email" onChange={handleChange}/>
         </div>
         <div className="form-group">
             <label htmlFor="password">Password</label>
