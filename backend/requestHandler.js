@@ -153,3 +153,19 @@ export async function cou(req,res) {
     
   })
 }
+
+export async function Home(req,res) {
+  try {
+
+    console.log(req.user.userId);
+    const _id = req.user.userId;
+    const user = await userSchema.findOne({_id});
+    console.log(user);
+    if(!user) 
+        return res.status(403).send({msg:"Unauthorized access"})
+    res.status(200).send({username:user.username})
+    
+} catch (error) {
+    res.status(404).send({msg:error})
+}
+}

@@ -20,16 +20,17 @@ const Login = () => {
     const handleSubmit=async(e)=>{
         e.preventDefault();
         console.log(user);
-        const res = await axios.post("http://localhost:3000/api/signin",user,{Headers:{"Content-Type":"application/json"}})
+        const res = await axios.post("http://localhost:3015/api/signin",user,{Headers:{"Content-Type":"application/json"}})
         console.log(res);
         console.log(res.data.msg);
         if(res.status==200){
-            sessionStorage.setItem('Auth',res.data.token)
+            localStorage.setItem('Auth',res.data.token)
             alert(res.data.msg)
             navigate('/')
         }
         else{
             alert(res.data.msg);
+            alert("Error")
         }
 
     }
@@ -56,4 +57,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Login;
