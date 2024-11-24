@@ -1,4 +1,5 @@
 import userSchema from './models/user.model.js'
+import profileSchema from './models/profile.model.js';
 import bcrypt from 'bcrypt'
 import pkg from "jsonwebtoken";
 import nodemailer from "nodemailer";
@@ -20,13 +21,16 @@ export async function signUp(req,res) {
             return res.status(404).send({msg:"fields are empty"})
         if(password !== cpassword)
             return res.status(404).send({msg:"password not matching"})
+          const user=await userSchema.findOne({email:email})
+          console.log(user);
         bcrypt
         .hash(password,10)
         .then((hashedPassword)=>{
             console.log(hashedPassword);
             userSchema
-            .create({email,username,password:hashedPassword})
-            .then(()=>{
+            .updateOne({email},{$set:{username,password:hashedPassword}})
+            .then (async()=>{
+              const data=await profileSchema.create({userid:user._id})
                 console.log("success");
                 return res.status(201).send({msg:"successs"})
             })
@@ -48,10 +52,10 @@ export async function signIn(req,res) {
    try {
     console.log(req.body);
     const{email,password}=req.body;
-    if(!(email&& password))
-        return res.status(404).send({msg:"fields are empty"});
     const user=await userSchema.findOne({email});
     console.log(user);
+    if(!(email&& password))
+        return res.status(404).send({msg:"fields are empty"});
     if(user===null){
         return res.status(404).send({msg:"Invalid username"});
     }
@@ -138,7 +142,9 @@ try{
 
    console.log("Message sent: %s", info.messageId);
    // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
-   return res.status(201).send({msg:"confirmation mail set success",email});
+   userSchema.create({email}).then(()=>{
+    return res.status(201).send({msg:"confirmation mail set success",email});
+   })
 }
 catch(error){
   return res.status(404).send({msg:'error'})
@@ -156,16 +162,44 @@ export async function cou(req,res) {
 
 export async function Home(req,res) {
   try {
-
+    console.log("home");
+    
     console.log(req.user.userId);
-    const _id = req.user.userId;
+    const _id=req.user.userId;
     const user = await userSchema.findOne({_id});
+    const profile = await profileSchema.findOne({userid:_id});
+    console.log(profile);
     console.log(user);
     if(!user) 
         return res.status(403).send({msg:"Unauthorized access"})
-    res.status(200).send({username:user.username})
+    res.status(200).send({username:user.username,profile})
     
 } catch (error) {
     res.status(404).send({msg:error})
 }
+}
+
+export async function editUser(req,res){
+  try{
+      const {...profile}=req.body;
+      console.log(profile);
+      const data=await profileSchema.updateOne({userid:profile.userid},{$set:{...profile}});
+      return res.status(201).send({msg:"Edited Success"})        
+  }catch(error){
+      res.status(404).send({msg:error})
+  }
+}
+
+export async function Profile(req,res) {
+  try{
+    const _id=req.user.userId;
+    const profile = await profileSchema.findOne({userid:_id});
+    console.log(profile);
+    return res.status(201).send({profile})
+  }
+  catch{
+    res.status(404).send({msg:error})
+
+  }
+
 }

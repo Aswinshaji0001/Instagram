@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import {useNavigate} from 'react-router-dom';
-import "../css/Email.css"
 import axios from 'axios'
+import './css/Email.css'
+
 
 const Email = () => {
     const navigate=useNavigate();

@@ -1,6 +1,6 @@
 .container {
     width: 400px;
-    height: 500px;
+    height: auto;
     margin: 50px auto;
     padding: 20px;
     background-color: #fff;
