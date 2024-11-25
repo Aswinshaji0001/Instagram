@@ -1,9 +1,11 @@
 import React from 'react'
 import { useState,useEffect} from 'react'
+import { useNavigate } from 'react-router-dom';
 import './css/Add.scss'
 import axios from 'axios'
 
-const AddProfile = ({setUser,setProfile}) => {
+const AddProfile = ({ setUser,setProfile }) => {
+  const navigate = useNavigate();
   const auth = localStorage.getItem('Auth');
   const [details,setDetails]=useState({
     userid:"",
@@ -21,10 +23,11 @@ const getDetails=async()=>{
       const res = await axios.get("http://localhost:3015/api/profile", { headers: { "Authorization": `Bearer ${auth}` } })
       console.log(res);
       if(res.status==201){
-        console.log(res.data);
+        console.log(res.data.username);
         setUser(res.data.username)
         setProfile(res.data.profile.profile)
         setDetails(res.data.profile)
+     
       }
       else if(res.status==403){
         alert("Error")
@@ -48,6 +51,7 @@ const handleSubmit=async(e)=>{
     console.log(res);
     if(res.status==201){
       alert(res.data.msg)
+      navigate("/profile")
     }
     else{
       alert(res.data.msg)

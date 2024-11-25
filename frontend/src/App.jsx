@@ -7,11 +7,11 @@ import Signup from './Components/Signup/Signup'
 import Login from './Components/Login/Login'
 import Nav from './Components/Nav/Nav'
 import AddProfile from './Components/AddProfile/AddProfile'
+import Profile from './Components/Profile/Profile';
 function App() {
   const [user,setUser]=useState("")
   const [profile,setProfile]=useState("")
   console.log(`appuser ${user}`);
-  console.log(`appuser ${profile}`);
   
   return (
     <>
@@ -23,6 +23,7 @@ function App() {
             <Route path="/signup" Component={Signup}></Route>
             <Route path="/signup" Component={Signup}></Route>
             <Route path="/login" Component={Login}></Route>
+            <Route path="/profile" Component={Profile}></Route>
             <Route path="/editprofile" element={<AddProfile setUser={setUser} setProfile={setProfile}/>}></Route>
         </Routes>
       </BrowserRouter>

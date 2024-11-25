@@ -13,8 +13,10 @@ const Nav = ({user,profile}) => {
           <h1 className='text'>Instagram</h1>
         </div>
         <div className="right">
+          <div className="imgs">
           <img src={profile} alt="" />
-          <Link to='/editprofile'><h2>{user}</h2></Link>
+          </div>
+          <Link to='/profile'><h2>{user}</h2></Link>
         </div>
       </nav>
     </div>

@@ -194,8 +194,9 @@ export async function Profile(req,res) {
   try{
     const _id=req.user.userId;
     const profile = await profileSchema.findOne({userid:_id});
-    console.log(profile);
-    return res.status(201).send({profile})
+    const user =await userSchema.findOne({_id},{username:1});
+    console.log(user);
+    return res.status(201).send({profile,username:user.username})
   }
   catch{
     res.status(404).send({msg:error})
