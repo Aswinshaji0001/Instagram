@@ -6,7 +6,7 @@ import axios from 'axios';
 const AddPost = ({setUser,setProfile}) => {
     const navigate = useNavigate();
     const auth = localStorage.getItem('Auth');
-    const [photos,setPhotos]=useState([""])
+    const [photos,setPhotos]=useState([])
     const [post,setPost]=useState({
       userId:"",
       description:""
@@ -43,11 +43,14 @@ const AddPost = ({setUser,setProfile}) => {
     const handleSubmit=async(e)=>{
         e.preventDefault();
         console.log(post);
-        const res = await axios.post("http://localhost:3015/api/addpost",{post,photos},{headers:{"Content-Type":"application/json"}})
+        const res = await axios.post("http://localhost:3015/api/addpost",{...post,photos},{headers:{"Content-Type":"application/json"}})
         console.log(res);
         if(res.status==201){
           alert(res.data.msg)
           navigate("/profile")
+        }
+        else if(res.status==403){
+          alert(res.data.msg)
         }
         else{
           alert(res.data.msg)

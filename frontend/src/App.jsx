@@ -24,7 +24,7 @@ function App() {
             <Route path="/signup" Component={Signup}></Route>
             <Route path="/signup" Component={Signup}></Route>
             <Route path="/login" Component={Login}></Route>
-            <Route path="/profile" Component={Profile}></Route>
+            <Route path="/profile" element={<Profile setUser={setUser} setProfile={setProfile}/>}></Route>
             <Route path="/editprofile" element={<AddProfile setUser={setUser} setProfile={setProfile}/>}></Route>
             <Route path="/addpost" element={<AddPost setUser={setUser} setProfile={setProfile}/>}></Route>
         </Routes>

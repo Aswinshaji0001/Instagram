@@ -168,8 +168,8 @@ export async function Home(req,res) {
     const _id=req.user.userId;
     const user = await userSchema.findOne({_id});
     const profile = await profileSchema.findOne({userid:_id});
-    console.log(profile);
-    console.log(user);
+    // console.log(profile);
+    // console.log(user);
     if(!user) 
         return res.status(403).send({msg:"Unauthorized access"})
     res.status(200).send({username:user.username,profile})
@@ -182,7 +182,7 @@ export async function Home(req,res) {
 export async function editUser(req,res){
   try{
       const {...profile}=req.body;
-      console.log(profile);
+      // console.log(profile);
       const data=await profileSchema.updateOne({userid:profile.userid},{$set:{...profile}});
       return res.status(201).send({msg:"Edited Success"})        
   }catch(error){
@@ -195,7 +195,6 @@ export async function Profile(req,res) {
     const _id=req.user.userId;
     const profile = await profileSchema.findOne({userid:_id});
     const user =await userSchema.findOne({_id},{username:1});
-    console.log(user);
     return res.status(201).send({profile,username:user.username})
   }
   catch{
@@ -208,8 +207,22 @@ export async function addPost(req,res){
   try{
       const{...post}=req.body;
        const data=await postSchema.create({...post});
-      return res.status(201).send({msg:data})
+       console.log(data);
+      return res.status(201).send({msg:"success"})
   }catch(error){
       res.status(404).send({msg:error})
+  }
+}
+export async function getPosts(req,res) {
+  try{
+    console.log("hai");
+    const _id=req.user.userId;
+    const post = await postSchema.find({userId:_id});
+    console.log(post);
+    return res.status(201).send({post})
+  }
+  catch(error){
+    res.status(404).send({msg:error})
+
   }
 }
