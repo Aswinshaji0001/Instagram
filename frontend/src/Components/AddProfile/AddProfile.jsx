@@ -27,7 +27,7 @@ const getDetails=async()=>{
         setUser(res.data.username)
         setProfile(res.data.profile.profile)
         setDetails(res.data.profile)
-     
+
       }
       else if(res.status==403){
         alert("Error")
@@ -86,7 +86,7 @@ function convertTBase64(file){
                   <input type="text" id="name" onChange={handleChange} name="name" required/>
 
                   <div className="prf" >
-                      <img src={details.profile} className="prfimg" id="proimg" alt=""/>
+                      <img src="" className="prfimg" id="proimg" alt=""/>
                   </div>
 
                   <label htmlFor="profile">Profile</label>

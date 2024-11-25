@@ -1,5 +1,6 @@
 import userSchema from './models/user.model.js'
 import profileSchema from './models/profile.model.js';
+import postSchema from './models/post.model.js';
 import bcrypt from 'bcrypt'
 import pkg from "jsonwebtoken";
 import nodemailer from "nodemailer";
@@ -163,7 +164,6 @@ export async function cou(req,res) {
 export async function Home(req,res) {
   try {
     console.log("home");
-    
     console.log(req.user.userId);
     const _id=req.user.userId;
     const user = await userSchema.findOne({_id});
@@ -203,4 +203,13 @@ export async function Profile(req,res) {
 
   }
 
+}
+export async function addPost(req,res){
+  try{
+      const{...post}=req.body;
+       const data=await postSchema.create({...post});
+      return res.status(201).send({msg:data})
+  }catch(error){
+      res.status(404).send({msg:error})
+  }
 }

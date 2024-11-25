@@ -33,6 +33,7 @@ const Profile = () => {
                     </div>
                     <div className="buttons">
                       <Link to="/editprofile"><button className='button-3'>Edit Profile</button></Link>
+                      <Link to="/addpost"><button className='button-4'>Add Post</button></Link>
                     </div>
                 </div>
                 <div className="rightc">

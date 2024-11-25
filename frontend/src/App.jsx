@@ -8,6 +8,7 @@ import Login from './Components/Login/Login'
 import Nav from './Components/Nav/Nav'
 import AddProfile from './Components/AddProfile/AddProfile'
 import Profile from './Components/Profile/Profile';
+import AddPost from './Components/AddPost/AddPost'
 function App() {
   const [user,setUser]=useState("")
   const [profile,setProfile]=useState("")
@@ -25,6 +26,7 @@ function App() {
             <Route path="/login" Component={Login}></Route>
             <Route path="/profile" Component={Profile}></Route>
             <Route path="/editprofile" element={<AddProfile setUser={setUser} setProfile={setProfile}/>}></Route>
+            <Route path="/addpost" element={<AddPost setUser={setUser} setProfile={setProfile}/>}></Route>
         </Routes>
       </BrowserRouter>
     </>
