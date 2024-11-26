@@ -8,7 +8,7 @@ import axios from 'axios';
 const Profile = ({setUser,setProfile}) => {
   const navigate = useNavigate();
   const auth = localStorage.getItem('Auth');
-  const [details,getDetails]=useState([]);
+  const [details,getDetails]=useState({});
   const [posts,getPost]=useState([])
     useEffect(()=>{
       getData();
@@ -27,6 +27,7 @@ const Profile = ({setUser,setProfile}) => {
         navigate('/')
       }
     }
+    console.log(details);
     // console.log(details);
     const getPosts=async()=>{
       const res = await axios.get("http://localhost:3015/api/getposts", { headers: { "Authorization": `Bearer ${auth}` } })
@@ -37,32 +38,40 @@ const Profile = ({setUser,setProfile}) => {
       else{
         alert("error")
       }
-    }
-    console.log(posts);
-    
+    }    
   return (
     <div>
             <div className="mainc">
                 <div className="leftc">
-                    <div className="pic">
-                      <img src={details.profile} alt="" />
+                  <div className="all">
+                  <div className="alldetails">
+                  <div className="pic">
+                    <div className="pics">
+                    <img src={details.profile} alt="" />
+                    </div>
                     </div>
                     <div className="details">
-                        <h3>Name :{details.name}</h3>
-                        <h3>Bio :{details.bio}</h3>
-                        <h3>DOB :{details.dob}</h3>
+                        <h1>{details.name}</h1>
+                        <h3>{details.bio}</h3>
+                        <h3>{details.dob}</h3>
                     </div>
+                  </div>
+                  </div>
                     <div className="buttons">
-                      <Link to="/editprofile"><button className='button-3'>Edit Profile</button></Link>
-                      <Link to="/addpost"><button className='button-4'>Add Post</button></Link>
+                      <Link to="/editprofile"><button className='button-3'>{details?"Edit Profile":"Add Profile"}</button></Link>
+                      <Link to="/editprofile"><button className='button-5'>Delete Account</button></Link>
+                      <Link to="/editprofile"><button className='button-5'>Logout</button></Link>
                     </div>
                 </div>
                 <div className="rightc">
                         <h1>ALL POSTS</h1>
-                        <div className="posts">
+                        <div className="btns">
+                        <Link to="/addpost"><button className='button-4'>Add Post</button></Link>
+                        </div>
+                        <div className="posts" key={posts._id}>
                           {posts.map((post)=>
                            <div className="post">
-                           <img src={post.photos[0]} alt="" />
+                           <Link to="/postdetails"><img src={post.photos[0]} alt="" /></Link>
                            </div>
                           )}
                         </div>

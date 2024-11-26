@@ -10,7 +10,7 @@ const Nav = ({user,profile}) => {
     <div>
       <nav>
         <div className="left">
-          <h1 className='text'>Instagram</h1>
+        <Link to='/'><h1 className='text'>Instagram</h1></Link>
         </div>
         <div className="right">
           <div className="imgs">

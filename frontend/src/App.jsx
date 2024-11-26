@@ -9,6 +9,7 @@ import Nav from './Components/Nav/Nav'
 import AddProfile from './Components/AddProfile/AddProfile'
 import Profile from './Components/Profile/Profile';
 import AddPost from './Components/AddPost/AddPost'
+import PostDetails from './Components/PostDetails/PostDetails'
 function App() {
   const [user,setUser]=useState("")
   const [profile,setProfile]=useState("")
@@ -24,6 +25,7 @@ function App() {
             <Route path="/signup" Component={Signup}></Route>
             <Route path="/signup" Component={Signup}></Route>
             <Route path="/login" Component={Login}></Route>
+            <Route path="/postdetails" Component={PostDetails}></Route>
             <Route path="/profile" element={<Profile setUser={setUser} setProfile={setProfile}/>}></Route>
             <Route path="/editprofile" element={<AddProfile setUser={setUser} setProfile={setProfile}/>}></Route>
             <Route path="/addpost" element={<AddPost setUser={setUser} setProfile={setProfile}/>}></Route>
