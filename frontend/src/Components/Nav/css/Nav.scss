@@ -6,6 +6,8 @@ nav{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    text-decoration: none;
+
     .right{
         margin: 1%;
         display: flex;
@@ -13,6 +15,10 @@ nav{
         justify-content: space-evenly;
         text-decoration: none;
         width: 10%;
+        a{
+            text-decoration: none;
+            color: black;
+        }
         img{
             border-radius: 100%;
             width: 50px;
@@ -22,6 +28,10 @@ nav{
     }
     .left{
         margin: 1%;
+        a{
+            text-decoration: none;
+            color: black;
+        }
        h1{
                 font-family: "Rouge Script", cursive;
                 font-weight: 600;

@@ -28,17 +28,34 @@ const Profile = ({setUser,setProfile}) => {
       }
     }
     console.log(details);
-    // console.log(details);
+    console.log(details.userid);
     const getPosts=async()=>{
       const res = await axios.get("http://localhost:3015/api/getposts", { headers: { "Authorization": `Bearer ${auth}` } })
-      console.log(res);
       if(res.status==201){
           getPost(res.data.post)        
       }
       else{
         alert("error")
       }
-    }    
+    } 
+    const logout=()=>{
+      localStorage.removeItem('Auth')
+      navigate('/login')
+    }  
+    const deleteAccount=async()=>{
+      const id=details.userid;
+      console.log(details.userid);
+      const res = await axios.get(`http://localhost:3015/api/deleteuser/${id}`, { headers: { "Authorization": `Bearer ${auth}` } })
+      if(res.status==201){
+        console.log("success");
+        
+      }
+      else{
+        console.log("Failed");
+        
+      }
+      
+    } 
   return (
     <div>
             <div className="mainc">
@@ -59,8 +76,8 @@ const Profile = ({setUser,setProfile}) => {
                   </div>
                     <div className="buttons">
                       <Link to="/editprofile"><button className='button-3'>{details?"Edit Profile":"Add Profile"}</button></Link>
-                      <Link to="/editprofile"><button className='button-5'>Delete Account</button></Link>
-                      <Link to="/editprofile"><button className='button-5'>Logout</button></Link>
+                      <button className='button-5' onClick={deleteAccount}>Delete Account</button>
+                      <button className='button-5' onClick={logout}>Logout</button>
                     </div>
                 </div>
                 <div className="rightc">
@@ -71,7 +88,7 @@ const Profile = ({setUser,setProfile}) => {
                         <div className="posts" key={posts._id}>
                           {posts.map((post)=>
                            <div className="post">
-                           <Link to="/postdetails"><img src={post.photos[0]} alt="" /></Link>
+                           <Link to={`/postdetails/${post._id}`}><img src={post.photos[0]} alt="" /></Link>
                            </div>
                           )}
                         </div>

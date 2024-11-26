@@ -6,6 +6,8 @@ import axios from 'axios';
 const AddPost = ({setUser,setProfile}) => {
     const navigate = useNavigate();
     const auth = localStorage.getItem('Auth');
+    const [postTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
+    const [postDate, setCurrentDate] = useState(new Date().toLocaleDateString());
     const [photos,setPhotos]=useState([])
     const [post,setPost]=useState({
       userId:"",
@@ -42,8 +44,9 @@ const AddPost = ({setUser,setProfile}) => {
     } 
     const handleSubmit=async(e)=>{
         e.preventDefault();
+        setCurrentTime(new Date().toLocaleTimeString())
         console.log(post);
-        const res = await axios.post("http://localhost:3015/api/addpost",{...post,photos},{headers:{"Content-Type":"application/json"}})
+        const res = await axios.post("http://localhost:3015/api/addpost",{...post,photos,postTime,postDate},{headers:{"Content-Type":"application/json"}})
         console.log(res);
         if(res.status==201){
           alert(res.data.msg)
