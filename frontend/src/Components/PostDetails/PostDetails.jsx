@@ -11,7 +11,8 @@ const PostDetails = ({setUser,setProfile}) => {
   const {id} = useParams();
   console.log(id);
   const auth = localStorage.getItem('Auth');
-  const [posts,getPost]=useState([])
+  const [posts,getPost]=useState({})
+  const [photos,getPhotos]=useState([])
   const [details,getDetails]=useState({});
   useEffect(()=>{
     getData();
@@ -32,30 +33,34 @@ const PostDetails = ({setUser,setProfile}) => {
   // console.log(details);
   const getPosts=async()=>{
     const res = await axios.get(`http://localhost:3015/api/getpost/${id}`, { headers: { "Authorization": `Bearer ${auth}` } })
-    console.log(res);
+    // console.log(res);
     if(res.status==201){
-        getPost(res.data.post)        
+      // console.log(res.data.post.photos[0]);
+        getPost(res.data.post);
+        getPhotos([...res.data.post.photos])   
     }
     else{
       alert("error")
     }
   }  
-  // console.log(posts);
+  console.log(photos[0]);
   return (
     <div>
       <div className="pcontainer">
         <div className="pc">
                 <div className="leftp">
                     <div className="images">
-                    <img src="" alt="" />
+                    {
+                      photos.map((photo,ind)=><img src={photo} alt="" key={ind}/>)
+                    }
                     </div>
                 </div>
                 <div className="rightp">
                   <div className="detailsp">
-                  <h1>{details.name}</h1>
+                  {/* <h1>{details.name}</h1> */}
                         <h1>{posts.description}</h1>
-                        <h1>{posts.postTime}</h1>
-                        <h1>{posts.postDate}</h1>
+                        <h3>{posts.postTime}</h3>
+                        <h3>{posts.postDate}</h3>
                   </div>
                         
                 </div>

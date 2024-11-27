@@ -226,6 +226,18 @@ export async function getPosts(req,res) {
 
   }
 }
+export async function getAllPosts(req,res) {
+  try{
+    const post = await postSchema.find({});
+    console.log(post);
+    return res.status(201).send({post})
+  }
+  catch(error){
+    res.status(404).send({msg:error})
+
+  }
+}
+
 export async function getPost(req,res) {
   try{
     console.log("hai");

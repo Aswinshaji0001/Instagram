@@ -12,5 +12,6 @@ router.route("/addpost").post(u.addPost);
 router.route("/profile").get(Auth,u.Profile);
 router.route("/getposts").get(Auth,u.getPosts);
 router.route("/getpost/:id").get(Auth,u.getPost);
+router.route("/getallposts").get(u.getAllPosts);
 router.route("/deleteUser/:id").delete(Auth,u.deleteUser);
 export default router;
