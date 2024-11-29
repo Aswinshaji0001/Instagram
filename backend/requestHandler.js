@@ -263,3 +263,16 @@ export async function deleteUser(req,res) {
       res.status(404).send(error);
   }   
 }
+
+export async function addLike(req,res) {
+  try{
+    const {id} = req.body;
+    const uid=req.user.userId;
+    const like = await postSchema.updateOne({_id:id},{$push:{likes:uid}})
+    console.log(like);
+    res.status(201).send({msg:"Liked"});
+  } catch(error){
+    res.status(404).send(error);
+
+  }
+}

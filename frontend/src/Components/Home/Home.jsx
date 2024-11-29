@@ -44,6 +44,15 @@ const Home = ({ setUser,setProfile }) => {
     // console.log(posts);
   const LikePost= async(id)=>{
     console.log(id);
+    const res = await axios.post("http://localhost:3015/api/addlike",{id},{ headers: { "Authorization": `Bearer ${auth}` } })
+    console.log(res);
+    if(res.status==201){
+      alert(res.data.msg)
+    }
+    else{
+      alert("error")
+    }
+    
   }
   return (
     <div>
@@ -54,6 +63,7 @@ const Home = ({ setUser,setProfile }) => {
                            <Link to={`/postdetails/${post._id}`}><img src={post.photos[0]} alt="" /></Link><hr />
                            <div className="like">
                             <img src={like} onClick={()=>LikePost(post._id)} alt="" />
+                            <p>{post.likes.length}</p>
                             </div>
                            </div>
                           )}

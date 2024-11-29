@@ -2,6 +2,7 @@ import mongoose, { mongo } from "mongoose";
 
 const postSchema=new mongoose.Schema({
     userId:{type:String},
+    likes:[],
     photos:{type:Array},
     description:{type:String},
     postDate:{type:String},

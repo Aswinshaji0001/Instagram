@@ -57,7 +57,6 @@ const PostDetails = ({setUser,setProfile}) => {
                 </div>
                 <div className="rightp">
                   <div className="detailsp">
-                  {/* <h1>{details.name}</h1> */}
                         <h1>{posts.description}</h1>
                         <h3>{posts.postTime}</h3>
                         <h3>{posts.postDate}</h3>
