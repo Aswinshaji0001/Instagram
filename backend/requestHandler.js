@@ -22,14 +22,13 @@ export async function signUp(req,res) {
             return res.status(404).send({msg:"fields are empty"})
         if(password !== cpassword)
             return res.status(404).send({msg:"password not matching"})
-          const user=await userSchema.findOne({email:email})
-          console.log(user);
+       
         bcrypt
         .hash(password,10)
         .then((hashedPassword)=>{
             console.log(hashedPassword);
             userSchema
-            .updateOne({email},{$set:{username,password:hashedPassword}})
+            .create({email,username,password:hashedPassword})
             .then (async()=>{
               const data=await profileSchema.create({userid:user._id})
                 console.log("success");
@@ -143,9 +142,9 @@ try{
 
    console.log("Message sent: %s", info.messageId);
    // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
-   userSchema.create({email}).then(()=>{
+
     return res.status(201).send({msg:"confirmation mail set success",email});
-   })
+
 }
 catch(error){
   return res.status(404).send({msg:'error'})
